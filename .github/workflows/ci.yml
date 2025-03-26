@@ -23,7 +23,7 @@ jobs:
         run: python -m unittest test_app.py
 
       - name: Analyse SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -33,9 +33,7 @@ jobs:
             -Dsonar.projectKey=WailAmbs_tp-ci-cd
             -Dsonar.sources=.
             -Dsonar.python.version=3
-            -Dsonar.projectBaseDir=.
-            -Dsonar.analysis.mode=publish
-            -Dsonar.scm.provider=git
+            -Dsonar.qualitygate.wait=true
 
       - name: Analyse de sécurité Snyk
         uses: snyk/actions/python@master
