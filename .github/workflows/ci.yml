@@ -30,7 +30,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=WailAmbs
-            -Dsonar.projectKey=wailambs_tp-ci-cd
+            -Dsonar.projectKey=WailAmbs_tp-ci-cd
             -Dsonar.sources=.
             -Dsonar.python.version=3
 
