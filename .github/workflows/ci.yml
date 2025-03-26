@@ -29,21 +29,17 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=wail
-            -Dsonar.projectKey=wailambs
+            -Dsonar.organization=wailambs
+            -Dsonar.projectKey=wailambs_tp-ci-cd
             -Dsonar.sources=.
             -Dsonar.python.version=3
 
-      - name: Installer Snyk
-        run: |
-          curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.1260.0/snyk-linux"
-          chmod +x ./snyk
-          sudo mv ./snyk /usr/local/bin/
-
-      - name: Analyse des dépendances avec Snyk
+      - name: Analyse de sécurité Snyk
+        uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --all-projects
+        with:
+          command: test
 
   deploy:
     needs: test
