@@ -26,9 +26,6 @@ jobs:
           unzip sonar-scanner-cli-4.8.0.2856-linux.zip
           echo "$PWD/sonar-scanner-4.8.0.2856-linux/bin" >> $GITHUB_PATH
 
-      - name: Exécuter SonarQube Scanner
-        run: sonar-scanner
-
       - name: Analyse du code avec SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
