@@ -20,7 +20,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Exécuter les tests
-        run: python -m unittest test_app.py
+        run: python -m unittest test_app.py app.y app2.py 
 
       - name: Analyse SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5.0.0
