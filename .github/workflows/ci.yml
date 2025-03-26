@@ -33,6 +33,9 @@ jobs:
             -Dsonar.projectKey=WailAmbs_tp-ci-cd
             -Dsonar.sources=.
             -Dsonar.python.version=3
+            -Dsonar.projectBaseDir=.
+            -Dsonar.analysis.mode=publish
+            -Dsonar.scm.provider=git
 
       - name: Analyse de sécurité Snyk
         uses: snyk/actions/python@master
