@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Installer Python
         uses: actions/setup-python@v4
@@ -20,33 +22,17 @@ jobs:
       - name: Exécuter les tests
         run: python -m unittest test_app.py
 
-      - name: Installer Java 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Configurer Java 17
-        run: |
-          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> $GITHUB_ENV
-          echo "$JAVA_HOME_17_X64/bin" >> $GITHUB_PATH
-
-      - name: Installer SonarQube Scanner
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-          unzip sonar-scanner-cli-4.7.0.2747-linux.zip
-          echo "$PWD/sonar-scanner-4.7.0.2747-linux/bin" >> $GITHUB_PATH
-
-      - name: Analyse du code avec SonarQube
+      - name: Analyse SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.organization=Wail \
-            -Dsonar.projectKey=wailambs \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
+        with:
+          args: >
+            -Dsonar.organization=wail
+            -Dsonar.projectKey=wailambs
+            -Dsonar.sources=.
+            -Dsonar.python.version=3
 
       - name: Installer Snyk
         run: |
