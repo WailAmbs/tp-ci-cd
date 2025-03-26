@@ -29,7 +29,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=WailAmbs
+            -Dsonar.organization=wailambs
             -Dsonar.projectKey=WailAmbs_tp-ci-cd
             -Dsonar.sources=.
             -Dsonar.python.version=3
